@@ -1,0 +1,22 @@
+GAME LOOP
+	(Display board)
+	Ask input: What unit to move
+	(Calculate all possible moves for unit)
+	Ask input: What move to make
+	If allowed 
+	(move unit)
+	(Update board)
+	(Display board again)
+
+
+NEEDED FUNCTIONS
+	Grab unit at certain position 
+	Calculate possible moves
+	Update board 
+	Board init (starting board)
+	Board display
+	Probably like a billion more i can't think of right now
+	Check logic
+
+
+
