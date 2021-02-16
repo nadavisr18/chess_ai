@@ -8,7 +8,7 @@ class Pawn(Unit):
         self.moved_from_start = moved_from_start
 
     def move(self, x: int, y: int):
-        if self.x != x:
+        if self.x != x and abs(self.x - x) == 1:
             if board.board[y[x]].team != self.team:
                 return True
             else:
