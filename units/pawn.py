@@ -9,7 +9,7 @@ class Pawn(Unit):
 
     def move(self, x: int, y: int):
         if self.x != x and abs(self.x - x) == 1:
-            if board.board[y[x]].team != self.team:
+            if board.board_list[y[x]].team != self.team:
                 return True
             else:
                 return False
