@@ -11,6 +11,8 @@ from units.rook import *
 
 class Board:
     def __init__(self):
+        self.dead_w = []
+        self.dead_b = []
         self.board_list = []
         for i in range(board_column_size):
             l = []
@@ -42,6 +44,17 @@ class Board:
             else:
                 self.board_list[current_y][current_x] = self.get_unit(char, current_x, current_y)
                 current_x += 1
+
+    def handel_dead_units(self, unit: Unit, team: str):
+        for y in self.board_list:
+            for row in y:
+                if unit in row:
+                    if team == "w":
+                        self.dead_w.append(unit)
+                    elif team == "b":
+                        self.dead_b.append(unit)
+                row.remove(unit)
+                unit.alive = False
 
     # Fix Pawn to not always be "not moved"
     @staticmethod
