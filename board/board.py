@@ -54,13 +54,15 @@ class Board:
         for y in range(board_column_size):
             temp_list = []
             for x in range(board_row_size):
-                if unit.symbol in ["p", "P"]:
-                    temp_list.append(unit.move(x, y, self))
-                else:
-                    temp_list.append(unit.move(x, y))
+                if unit is not None:
+                    if unit.symbol in ["p", "P"]:
+                        temp_list.append(unit.move(x, y, self))
+                    else:
+                        temp_list.append(unit.move(x, y))
             moves_list.append(temp_list)
         for x in range(len(moves_list)):
             print(moves_list[x])
+        return moves_list
 
     def move_unit(self, unit: Unit, target_x: int, target_y: int):
         self.board_list[unit.y][unit.x] = None
@@ -82,16 +84,16 @@ class Board:
     @staticmethod
     def get_unit(char: str, x: int, y: int):
         if char == "P":
-            return Pawn((x, y, True, "w", char), False)
+            return Pawn((x, y, True, "w", char))
 
         elif char == "p":
-            return Pawn((x, y, True, "b", char), False)
+            return Pawn((x, y, True, "b", char))
 
         elif char == "R":
-            return Rook((x, y, True, "w", char), False)
+            return Rook((x, y, True, "w", char))
 
         elif char == "r":
-            return Rook((x, y, True, "b", char), False)
+            return Rook((x, y, True, "b", char))
 
         elif char == "N":
             return Knight((x, y, True, "w", char))
@@ -112,9 +114,9 @@ class Board:
             return Queen((x, y, True, "b", char))
 
         elif char == "K":
-            return King((x, y, True, "w", char), False)
+            return King((x, y, True, "w", char))
 
         elif char == "k":
-            return King((x, y, True, "b", char), False)
+            return King((x, y, True, "b", char))
 
 
