@@ -6,7 +6,7 @@ class Queen(Unit):
         super(Queen, self).__init__(unit_features)
 
     def move(self, x: int, y: int):
-        if self.x == x or self.y == y:
+        if self.x == x and self.y == y:
             return False
         elif self.x == x or self.y == y:
             return True

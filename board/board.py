@@ -29,9 +29,9 @@ class Board:
         for i in self.board_list:
             for unit in i:
                 if unit is None:
-                    print("Empty", end=" ")
+                    print("*", end="  ")
                 else:
-                    print(unit.symbol, end=" ")
+                    print(unit.symbol, end="  ")
             print("\n")
 
     def fen_to_board(self, fen: str):
@@ -53,15 +53,16 @@ class Board:
         moves_list = []
         for y in range(board_column_size):
             temp_list = []
-            for x in self.board_list[y]:
-                temp_list.append(x.move(x,y))
+            for x in range(board_row_size):
+                if unit.symbol in ["p", "P"]:
+                    temp_list.append(unit.move(x, y, self))
+                else:
+                    temp_list.append(unit.move(x, y))
             moves_list.append(temp_list)
-        print(moves_list)
-
-
+        for x in range(len(moves_list)):
+            print(moves_list[x])
 
     def move_unit(self, unit: Unit, target_x: int, target_y: int):
-        from board.board import Board
         self.board_list[unit.y][unit.x] = None
         unit.x = target_x
         unit.y = target_y
@@ -81,16 +82,16 @@ class Board:
     @staticmethod
     def get_unit(char: str, x: int, y: int):
         if char == "P":
-            return Pawn((x, y, True, "w", char), True)
+            return Pawn((x, y, True, "w", char), False)
 
         elif char == "p":
-            return Pawn((x, y, True, "b", char), True)
+            return Pawn((x, y, True, "b", char), False)
 
         elif char == "R":
-            return Rook((x, y, True, "w", char))
+            return Rook((x, y, True, "w", char), False)
 
         elif char == "r":
-            return Rook((x, y, True, "b", char))
+            return Rook((x, y, True, "b", char), False)
 
         elif char == "N":
             return Knight((x, y, True, "w", char))
@@ -111,9 +112,9 @@ class Board:
             return Queen((x, y, True, "b", char))
 
         elif char == "K":
-            return King((x, y, True, "w", char))
+            return King((x, y, True, "w", char), False)
 
         elif char == "k":
-            return King((x, y, True, "b", char))
+            return King((x, y, True, "b", char), False)
 
 

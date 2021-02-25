@@ -8,5 +8,5 @@ if __name__ == "__main__":
     b.fen_to_board(fen)
     b.display()
 
-    b.allowed_moves(b.board_list[1][0])
+    b.allowed_moves(b.board_list[6][0])
 

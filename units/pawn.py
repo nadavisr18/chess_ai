@@ -7,19 +7,22 @@ class Pawn(Unit):
         super(Pawn, self).__init__(unit_features)
         self.moved_from_start = moved_from_start
 
-    def move(self, x: int, y: int):
+    def move(self, x: int, y: int, board):
         if self.x != x and abs(self.x - x) == 1:
-            if board.board_list[y[x]].team != self.team:
+            from board.board import Board
+            if board.board_list[y][x] is type(Unit) and board.board_list[y][x].team != self.team:
                 return True
             else:
                 return False
+        elif self.x != x:
+            return False
         else:
             if abs(self.y - y) > 1:
                 if self.moved_from_start:
                     return False
                 else:
                     if abs(self.y - y) == 2:
-                        if self.team == "black":
+                        if self.team == "b":
                             if y < self.y:
                                 return False
                             else:
@@ -33,7 +36,7 @@ class Pawn(Unit):
                         return False
 
             elif abs(self.y - y) == 1:
-                if self.team == "black":
+                if self.team == "b":
                     if y < self.y:
                         return False
                     else:
