@@ -1,13 +1,17 @@
 
 import re
-from units.bishop import *
-from units.king import *
-from units.knight import *
-from units.pawn import *
-from units.queen import *
-from units.rook import *
+from units.unit import Unit
+from units.bishop import Bishop
+from units.king import King
+from units.knight import Knight
+from units.pawn import Pawn
+from units.queen import Queen
+from units.rook import Rook
 
 # board_row_size and board_column_size needs to be imported from config
+
+board_column_size = 8
+board_row_size = 8
 
 class Board:
     def __init__(self):
@@ -45,16 +49,33 @@ class Board:
                 self.board_list[current_y][current_x] = self.get_unit(char, current_x, current_y)
                 current_x += 1
 
-    def handel_dead_units(self, unit: Unit, team: str):
-        for y in self.board_list:
-            for row in y:
-                if unit in row:
-                    if team == "w":
-                        self.dead_w.append(unit)
-                    elif team == "b":
-                        self.dead_b.append(unit)
-                row.remove(unit)
-                unit.alive = False
+    def allowed_moves(self, unit: Unit):
+        moves_list = []
+        for y in range(board_column_size):
+            temp_list = []
+            for x in self.board_list[y]:
+                temp_list.append(x.move(x,y))
+            moves_list.append(temp_list)
+        print(moves_list)
+
+
+
+    def move_unit(self, unit: Unit, target_x: int, target_y: int):
+        from board.board import Board
+        self.board_list[unit.y][unit.x] = None
+        unit.x = target_x
+        unit.y = target_y
+        if self.board_list[target_y][target_x] is not None:
+            self.handel_dead_units(self.board_list[target_y][target_y])
+        self.board_list[target_y][target_x] = unit
+
+    def handel_dead_units(self, unit: Unit):
+        if unit.team == "w":
+            self.dead_w.append(unit)
+        elif unit.team == "b":
+            self.dead_b.append(unit)
+        self.board_list[unit.y].remove(unit)
+        unit.alive = False
 
     # Fix Pawn to not always be "not moved"
     @staticmethod
@@ -96,9 +117,3 @@ class Board:
             return King((x, y, True, "b", char))
 
 
-b = Board()
-
-fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-
-b.fen_to_board(fen)
-b.display()
