@@ -15,8 +15,16 @@ class Pawn(Unit):
     def move(self, x: int, y: int, board):
         if self.x != x and abs(self.x - x) == 1:
             from board.board import Board
-            if board.board_list[y][x] is not None and board.board_list[y][x].team != self.team:
-                return True
+            if (self.y-y) == 1 and self.team =="w":
+                if board.board_list[y][x] is not None and board.board_list[y][x].team != self.team:
+                    return True
+                else:
+                    return False
+            elif (self.y-y) == -1 and self.team =="b":
+                if board.board_list[y][x] is not None and board.board_list[y][x].team != self.team:
+                    return True
+                else:
+                    return False
             else:
                 return False
         elif self.x != x:

@@ -60,6 +60,7 @@ class Board:
                     else:
                         temp_list.append(unit.move(x, y))
             moves_list.append(temp_list)
+        moves_list = unit.collision_detection(moves_list, self.board_list)
         for x in range(len(moves_list)):
             print(moves_list[x])
         return moves_list
